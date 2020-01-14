@@ -1,0 +1,338 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="BD_Recorridas_ITModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="TB_RECORRIDAS">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cs_soportista" Type="int" Nullable="false" />
+          <Property Name="fecha" Type="date" Nullable="false" />
+          <Property Name="detalle" Type="varchar(max)" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'BD_Recorridas_IT.dbo.TB_RECORRIDAS_SALONES' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="TB_RECORRIDAS_SALONES">
+          <Key>
+            <PropertyRef Name="cs_recorridas" />
+            <PropertyRef Name="cs_salones" />
+            <PropertyRef Name="estado" />
+          </Key>
+          <Property Name="cs_recorridas" Type="int" Nullable="false" />
+          <Property Name="cs_salones" Type="int" Nullable="false" />
+          <Property Name="estado" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TB_SALONES">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre_salon" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TB_USER_IT">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre_user" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <Association Name="fk_nom_salones">
+          <End Role="TB_SALONES" Type="Self.TB_SALONES" Multiplicity="1" />
+          <End Role="TB_RECORRIDAS_SALONES" Type="Self.TB_RECORRIDAS_SALONES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TB_SALONES">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TB_RECORRIDAS_SALONES">
+              <PropertyRef Name="cs_salones" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_recorridas">
+          <End Role="TB_RECORRIDAS" Type="Self.TB_RECORRIDAS" Multiplicity="1" />
+          <End Role="TB_RECORRIDAS_SALONES" Type="Self.TB_RECORRIDAS_SALONES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TB_RECORRIDAS">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TB_RECORRIDAS_SALONES">
+              <PropertyRef Name="cs_recorridas" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_recorridas_soportista">
+          <End Role="TB_USER_IT" Type="Self.TB_USER_IT" Multiplicity="1" />
+          <End Role="TB_RECORRIDAS" Type="Self.TB_RECORRIDAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TB_USER_IT">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TB_RECORRIDAS">
+              <PropertyRef Name="cs_soportista" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="SP_AGREGAR_SALON_RECORRIDA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_recorrida" Type="int" Mode="In" />
+          <Parameter Name="id_salon" Type="int" Mode="In" />
+          <Parameter Name="estado" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_CREAR_SALON" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="nombre" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SP_CREAR_SOPORTISTA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="nombre" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SP_ELIMINAR_SALON" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_ELIMINAR_SOPORTISTA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_JOB_ULTIMA_RECORRIDA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_NUEVA_RECORRIDA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="nombre_user" Type="varchar" Mode="In" />
+          <Parameter Name="detalle" Type="varchar(max)" Mode="In" />
+        </Function>
+        <Function Name="SP_TRAER_HISTORIAL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="BD_Recorridas_ITModelStoreContainer">
+          <EntitySet Name="TB_RECORRIDAS" EntityType="Self.TB_RECORRIDAS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TB_SALONES" EntityType="Self.TB_SALONES" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TB_USER_IT" EntityType="Self.TB_USER_IT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TB_RECORRIDAS_SALONES" EntityType="Self.TB_RECORRIDAS_SALONES" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [TB_RECORRIDAS_SALONES].[cs_recorridas] AS [cs_recorridas], 
+    [TB_RECORRIDAS_SALONES].[cs_salones] AS [cs_salones], 
+    [TB_RECORRIDAS_SALONES].[estado] AS [estado]
+    FROM [dbo].[TB_RECORRIDAS_SALONES] AS [TB_RECORRIDAS_SALONES]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="fk_nom_salones" Association="Self.fk_nom_salones">
+            <End Role="TB_SALONES" EntitySet="TB_SALONES" />
+            <End Role="TB_RECORRIDAS_SALONES" EntitySet="TB_RECORRIDAS_SALONES" />
+          </AssociationSet>
+          <AssociationSet Name="fk_recorridas" Association="Self.fk_recorridas">
+            <End Role="TB_RECORRIDAS" EntitySet="TB_RECORRIDAS" />
+            <End Role="TB_RECORRIDAS_SALONES" EntitySet="TB_RECORRIDAS_SALONES" />
+          </AssociationSet>
+          <AssociationSet Name="fk_recorridas_soportista" Association="Self.fk_recorridas_soportista">
+            <End Role="TB_USER_IT" EntitySet="TB_USER_IT" />
+            <End Role="TB_RECORRIDAS" EntitySet="TB_RECORRIDAS" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BD_Recorridas_ITModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="TB_RECORRIDAS">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cs_soportista" Type="Int32" Nullable="false" />
+          <Property Name="fecha" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="detalle" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TB_RECORRIDAS_SALONES" Relationship="Self.fk_recorridas" FromRole="TB_RECORRIDAS" ToRole="TB_RECORRIDAS_SALONES" />
+          <NavigationProperty Name="TB_USER_IT" Relationship="Self.fk_recorridas_soportista" FromRole="TB_RECORRIDAS" ToRole="TB_USER_IT" />
+        </EntityType>
+        <EntityType Name="TB_SALONES">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre_salon" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="TB_RECORRIDAS_SALONES" Relationship="Self.fk_nom_salones" FromRole="TB_SALONES" ToRole="TB_RECORRIDAS_SALONES" />
+        </EntityType>
+        <EntityType Name="TB_USER_IT">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre_user" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="TB_RECORRIDAS" Relationship="Self.fk_recorridas_soportista" FromRole="TB_USER_IT" ToRole="TB_RECORRIDAS" />
+        </EntityType>
+        <EntityType Name="TB_RECORRIDAS_SALONES">
+          <Key>
+            <PropertyRef Name="cs_recorridas" />
+            <PropertyRef Name="cs_salones" />
+            <PropertyRef Name="estado" />
+          </Key>
+          <Property Name="cs_recorridas" Type="Int32" Nullable="false" />
+          <Property Name="cs_salones" Type="Int32" Nullable="false" />
+          <Property Name="estado" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="TB_RECORRIDAS" Relationship="Self.fk_recorridas" FromRole="TB_RECORRIDAS_SALONES" ToRole="TB_RECORRIDAS" />
+          <NavigationProperty Name="TB_SALONES" Relationship="Self.fk_nom_salones" FromRole="TB_RECORRIDAS_SALONES" ToRole="TB_SALONES" />
+        </EntityType>
+        <Association Name="fk_recorridas">
+          <End Role="TB_RECORRIDAS" Type="Self.TB_RECORRIDAS" Multiplicity="1" />
+          <End Role="TB_RECORRIDAS_SALONES" Type="Self.TB_RECORRIDAS_SALONES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TB_RECORRIDAS">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TB_RECORRIDAS_SALONES">
+              <PropertyRef Name="cs_recorridas" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_recorridas_soportista">
+          <End Role="TB_USER_IT" Type="Self.TB_USER_IT" Multiplicity="1" />
+          <End Role="TB_RECORRIDAS" Type="Self.TB_RECORRIDAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TB_USER_IT">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TB_RECORRIDAS">
+              <PropertyRef Name="cs_soportista" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_nom_salones">
+          <End Role="TB_SALONES" Type="Self.TB_SALONES" Multiplicity="1" />
+          <End Role="TB_RECORRIDAS_SALONES" Type="Self.TB_RECORRIDAS_SALONES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TB_SALONES">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TB_RECORRIDAS_SALONES">
+              <PropertyRef Name="cs_salones" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BD_Recorridas_ITEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="TB_RECORRIDAS" EntityType="Self.TB_RECORRIDAS" />
+          <EntitySet Name="TB_SALONES" EntityType="Self.TB_SALONES" />
+          <EntitySet Name="TB_USER_IT" EntityType="Self.TB_USER_IT" />
+          <EntitySet Name="TB_RECORRIDAS_SALONES" EntityType="Self.TB_RECORRIDAS_SALONES" />
+          <AssociationSet Name="fk_recorridas" Association="Self.fk_recorridas">
+            <End Role="TB_RECORRIDAS" EntitySet="TB_RECORRIDAS" />
+            <End Role="TB_RECORRIDAS_SALONES" EntitySet="TB_RECORRIDAS_SALONES" />
+          </AssociationSet>
+          <AssociationSet Name="fk_recorridas_soportista" Association="Self.fk_recorridas_soportista">
+            <End Role="TB_USER_IT" EntitySet="TB_USER_IT" />
+            <End Role="TB_RECORRIDAS" EntitySet="TB_RECORRIDAS" />
+          </AssociationSet>
+          <AssociationSet Name="fk_nom_salones" Association="Self.fk_nom_salones">
+            <End Role="TB_SALONES" EntitySet="TB_SALONES" />
+            <End Role="TB_RECORRIDAS_SALONES" EntitySet="TB_RECORRIDAS_SALONES" />
+          </AssociationSet>
+          <FunctionImport Name="SP_AGREGAR_SALON_RECORRIDA">
+            <Parameter Name="id_recorrida" Mode="In" Type="Int32" />
+            <Parameter Name="id_salon" Mode="In" Type="Int32" />
+            <Parameter Name="estado" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_CREAR_SALON">
+            <Parameter Name="nombre" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_CREAR_SOPORTISTA">
+            <Parameter Name="nombre" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_ELIMINAR_SALON">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_ELIMINAR_SOPORTISTA">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_JOB_ULTIMA_RECORRIDA" />
+          <FunctionImport Name="SP_NUEVA_RECORRIDA" ReturnType="Collection(Int32)">
+            <Parameter Name="nombre_user" Mode="In" Type="String" />
+            <Parameter Name="detalle" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_TRAER_HISTORIAL" ReturnType="Collection(BD_Recorridas_ITModel.SP_TRAER_HISTORIAL_Result)" />
+        </EntityContainer>
+        <ComplexType Name="SP_TRAER_HISTORIAL_Result">
+          <Property Type="Int32" Name="id_recorrida" Nullable="false" />
+          <Property Type="String" Name="nombre_user" Nullable="false" MaxLength="255" />
+          <Property Type="Int32" Name="id_salon" Nullable="false" />
+          <Property Type="String" Name="nombre_salon" Nullable="false" MaxLength="255" />
+          <Property Type="DateTime" Name="fecha" Nullable="false" />
+          <Property Type="String" Name="detalle" Nullable="true" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BD_Recorridas_ITModelStoreContainer" CdmEntityContainer="BD_Recorridas_ITEntities">
+          <EntitySetMapping Name="TB_RECORRIDAS">
+            <EntityTypeMapping TypeName="BD_Recorridas_ITModel.TB_RECORRIDAS">
+              <MappingFragment StoreEntitySet="TB_RECORRIDAS">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="cs_soportista" ColumnName="cs_soportista" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="detalle" ColumnName="detalle" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TB_SALONES">
+            <EntityTypeMapping TypeName="BD_Recorridas_ITModel.TB_SALONES">
+              <MappingFragment StoreEntitySet="TB_SALONES">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nombre_salon" ColumnName="nombre_salon" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TB_USER_IT">
+            <EntityTypeMapping TypeName="BD_Recorridas_ITModel.TB_USER_IT">
+              <MappingFragment StoreEntitySet="TB_USER_IT">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nombre_user" ColumnName="nombre_user" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TB_RECORRIDAS_SALONES">
+            <EntityTypeMapping TypeName="BD_Recorridas_ITModel.TB_RECORRIDAS_SALONES">
+              <MappingFragment StoreEntitySet="TB_RECORRIDAS_SALONES">
+                <ScalarProperty Name="cs_recorridas" ColumnName="cs_recorridas" />
+                <ScalarProperty Name="cs_salones" ColumnName="cs_salones" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="SP_AGREGAR_SALON_RECORRIDA" FunctionName="BD_Recorridas_ITModel.Store.SP_AGREGAR_SALON_RECORRIDA" />
+          <FunctionImportMapping FunctionImportName="SP_CREAR_SALON" FunctionName="BD_Recorridas_ITModel.Store.SP_CREAR_SALON" />
+          <FunctionImportMapping FunctionImportName="SP_CREAR_SOPORTISTA" FunctionName="BD_Recorridas_ITModel.Store.SP_CREAR_SOPORTISTA" />
+          <FunctionImportMapping FunctionImportName="SP_ELIMINAR_SALON" FunctionName="BD_Recorridas_ITModel.Store.SP_ELIMINAR_SALON" />
+          <FunctionImportMapping FunctionImportName="SP_ELIMINAR_SOPORTISTA" FunctionName="BD_Recorridas_ITModel.Store.SP_ELIMINAR_SOPORTISTA" />
+          <FunctionImportMapping FunctionImportName="SP_JOB_ULTIMA_RECORRIDA" FunctionName="BD_Recorridas_ITModel.Store.SP_JOB_ULTIMA_RECORRIDA" />
+          <FunctionImportMapping FunctionImportName="SP_NUEVA_RECORRIDA" FunctionName="BD_Recorridas_ITModel.Store.SP_NUEVA_RECORRIDA" />
+          <FunctionImportMapping FunctionImportName="SP_TRAER_HISTORIAL" FunctionName="BD_Recorridas_ITModel.Store.SP_TRAER_HISTORIAL">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BD_Recorridas_ITModel.SP_TRAER_HISTORIAL_Result">
+                <ScalarProperty Name="id_recorrida" ColumnName="id_recorrida" />
+                <ScalarProperty Name="nombre_user" ColumnName="nombre_user" />
+                <ScalarProperty Name="id_salon" ColumnName="id_salon" />
+                <ScalarProperty Name="nombre_salon" ColumnName="nombre_salon" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="detalle" ColumnName="detalle" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

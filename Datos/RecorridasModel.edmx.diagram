@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="b51d9085ab544f08a7db5918080cac03" Name="Diagram1">
+        <EntityTypeShape EntityType="BD_Recorridas_ITModel.TB_RECORRIDAS" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BD_Recorridas_ITModel.TB_SALONES" Width="1.5" PointX="3" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BD_Recorridas_ITModel.TB_USER_IT" Width="1.5" PointX="0.75" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BD_Recorridas_ITModel.TB_RECORRIDAS_SALONES" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <AssociationConnector Association="BD_Recorridas_ITModel.fk_recorridas" ManuallyRouted="false" />
+        <AssociationConnector Association="BD_Recorridas_ITModel.fk_recorridas_soportista" ManuallyRouted="false" />
+        <AssociationConnector Association="BD_Recorridas_ITModel.fk_nom_salones" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

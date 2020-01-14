@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BD_Recorridas_ITModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="TB_RECORRIDAS">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="cs_soportista" Type="int" Nullable="false" />
+    <Property Name="fecha" Type="date" Nullable="false" />
+    <Property Name="detalle" Type="varchar(max)" />
+  </EntityType>
+  <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'BD_Recorridas_IT.dbo.TB_RECORRIDAS_SALONES' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+  <EntityType Name="TB_RECORRIDAS_SALONES">
+    <Key>
+      <PropertyRef Name="cs_recorridas" />
+      <PropertyRef Name="cs_salones" />
+      <PropertyRef Name="estado" />
+    </Key>
+    <Property Name="cs_recorridas" Type="int" Nullable="false" />
+    <Property Name="cs_salones" Type="int" Nullable="false" />
+    <Property Name="estado" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TB_SALONES">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombre_salon" Type="varchar" MaxLength="255" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TB_USER_IT">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombre_user" Type="varchar" MaxLength="255" Nullable="false" />
+  </EntityType>
+  <Association Name="fk_nom_salones">
+    <End Role="TB_SALONES" Type="Self.TB_SALONES" Multiplicity="1" />
+    <End Role="TB_RECORRIDAS_SALONES" Type="Self.TB_RECORRIDAS_SALONES" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TB_SALONES">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="TB_RECORRIDAS_SALONES">
+        <PropertyRef Name="cs_salones" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_recorridas">
+    <End Role="TB_RECORRIDAS" Type="Self.TB_RECORRIDAS" Multiplicity="1" />
+    <End Role="TB_RECORRIDAS_SALONES" Type="Self.TB_RECORRIDAS_SALONES" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TB_RECORRIDAS">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="TB_RECORRIDAS_SALONES">
+        <PropertyRef Name="cs_recorridas" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_recorridas_soportista">
+    <End Role="TB_USER_IT" Type="Self.TB_USER_IT" Multiplicity="1" />
+    <End Role="TB_RECORRIDAS" Type="Self.TB_RECORRIDAS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TB_USER_IT">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="TB_RECORRIDAS">
+        <PropertyRef Name="cs_soportista" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="SP_AGREGAR_SALON_RECORRIDA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id_recorrida" Type="int" Mode="In" />
+    <Parameter Name="id_salon" Type="int" Mode="In" />
+    <Parameter Name="estado" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_CREAR_SALON" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="nombre" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="SP_CREAR_SOPORTISTA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="nombre" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="SP_ELIMINAR_SALON" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_ELIMINAR_SOPORTISTA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_JOB_ULTIMA_RECORRIDA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="SP_NUEVA_RECORRIDA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="nombre_user" Type="varchar" Mode="In" />
+    <Parameter Name="detalle" Type="varchar(max)" Mode="In" />
+  </Function>
+  <Function Name="SP_TRAER_HISTORIAL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <EntityContainer Name="BD_Recorridas_ITModelStoreContainer">
+    <EntitySet Name="TB_RECORRIDAS" EntityType="Self.TB_RECORRIDAS" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TB_SALONES" EntityType="Self.TB_SALONES" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TB_USER_IT" EntityType="Self.TB_USER_IT" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TB_RECORRIDAS_SALONES" EntityType="Self.TB_RECORRIDAS_SALONES" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [TB_RECORRIDAS_SALONES].[cs_recorridas] AS [cs_recorridas], 
+    [TB_RECORRIDAS_SALONES].[cs_salones] AS [cs_salones], 
+    [TB_RECORRIDAS_SALONES].[estado] AS [estado]
+    FROM [dbo].[TB_RECORRIDAS_SALONES] AS [TB_RECORRIDAS_SALONES]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="fk_nom_salones" Association="Self.fk_nom_salones">
+      <End Role="TB_SALONES" EntitySet="TB_SALONES" />
+      <End Role="TB_RECORRIDAS_SALONES" EntitySet="TB_RECORRIDAS_SALONES" />
+    </AssociationSet>
+    <AssociationSet Name="fk_recorridas" Association="Self.fk_recorridas">
+      <End Role="TB_RECORRIDAS" EntitySet="TB_RECORRIDAS" />
+      <End Role="TB_RECORRIDAS_SALONES" EntitySet="TB_RECORRIDAS_SALONES" />
+    </AssociationSet>
+    <AssociationSet Name="fk_recorridas_soportista" Association="Self.fk_recorridas_soportista">
+      <End Role="TB_USER_IT" EntitySet="TB_USER_IT" />
+      <End Role="TB_RECORRIDAS" EntitySet="TB_RECORRIDAS" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

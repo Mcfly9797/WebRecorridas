@@ -1,0 +1,133 @@
+﻿body {
+    background-color: grey;
+    color: #fff;
+}
+
+.navbar {
+    border-bottom: #c0392b 3px solid;
+    opacity: .7;
+}
+
+
+#main {
+    background: url('../img/Bridgestone.jpg');
+    min-height: 90vh;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+.dark-overlay {
+    background-color: rgba(0, 0, 0, .7);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-height: 100%;
+}
+
+
+
+.home-inner {
+    padding-top: 200px;
+}
+
+.login-container {
+    margin-top: 8vh;
+    opacity: .9;
+}
+
+.login-form {
+    padding: 5%;
+    background: #f05837;
+    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
+}
+
+    .login-form h2 {
+        text-align: center;
+        margin-bottom: 12%;
+        color: #fff;
+    }
+
+.btnSubmit {
+    font-weight: 600;
+    width: 50%;
+    color: #282726;
+    background-color: #fff;
+    border: none;
+    border-radius: 1.5rem;
+    padding: 2%;
+}
+
+.btnForgetPwd {
+    color: #fff;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+    .btnForgetPwd:hover {
+        text-decoration: none;
+        color: #fff;
+    }
+
+
+footer{
+    background-color:black;
+    height: 10vh;
+    margin-bottom: 0%;
+    text-align:right;
+    justify-items:center;
+    
+}
+
+    footer a {
+        padding: 30px;
+        justify-content:center;
+        align-content:center;
+
+    }
+
+    modal{
+
+        display:block
+
+    }
+
+
+@media (max-width: 992px) {
+    .home-inner {
+        padding-top: 0px;
+    }
+
+    footer {
+        min-height: 10vh;
+    }
+
+        footer a {
+            display: none;
+        }
+
+    .login-container {
+        width: 100%;
+        height: auto;
+    }
+
+    .login-form {
+        margin-top: 10%;
+        padding: 5px;
+        background: #f05837;
+        box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
+    }
+
+    .navbar {
+        border-bottom: #c0392b 3px solid;
+        opacity: .8;
+        background-color: black;
+    }
+
+    #main {
+        background: url('../img/Bridgestone.jpg');
+        min-height: 90vh;
+        background-size: cover;
+        background-attachment: fixed;
+    }
+}

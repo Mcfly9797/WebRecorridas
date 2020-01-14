@@ -1,0 +1,19 @@
+C:\Users\a-villarealn\Desktop\ExplorarVisualStudio\Consola Test Backend\bin\Debug\Consola Test Backend.exe.config
+C:\Users\a-villarealn\Desktop\ExplorarVisualStudio\Consola Test Backend\bin\Debug\Consola Test Backend.exe
+C:\Users\a-villarealn\Desktop\ExplorarVisualStudio\Consola Test Backend\bin\Debug\Consola Test Backend.pdb
+C:\Users\a-villarealn\Desktop\ExplorarVisualStudio\Consola Test Backend\bin\Debug\Datos.dll
+C:\Users\a-villarealn\Desktop\ExplorarVisualStudio\Consola Test Backend\bin\Debug\EntityFramework.dll
+C:\Users\a-villarealn\Desktop\ExplorarVisualStudio\Consola Test Backend\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\a-villarealn\Desktop\ExplorarVisualStudio\Consola Test Backend\bin\Debug\System.Data.SqlClient.dll
+C:\Users\a-villarealn\Desktop\ExplorarVisualStudio\Consola Test Backend\bin\Debug\Datos.pdb
+C:\Users\a-villarealn\Desktop\ExplorarVisualStudio\Consola Test Backend\bin\Debug\Datos.dll.config
+C:\Users\a-villarealn\Desktop\ExplorarVisualStudio\Consola Test Backend\bin\Debug\EntityFramework.xml
+C:\Users\a-villarealn\Desktop\ExplorarVisualStudio\Consola Test Backend\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\a-villarealn\Desktop\ExplorarVisualStudio\Consola Test Backend\bin\Debug\System.Data.SqlClient.xml
+C:\Users\a-villarealn\Desktop\ExplorarVisualStudio\Consola Test Backend\obj\Debug\Consola Test Backend.csprojAssemblyReference.cache
+C:\Users\a-villarealn\Desktop\ExplorarVisualStudio\Consola Test Backend\obj\Debug\Consola Test Backend.csproj.CoreCompileInputs.cache
+C:\Users\a-villarealn\Desktop\ExplorarVisualStudio\Consola Test Backend\obj\Debug\Consola Test Backend.csproj.CopyComplete
+C:\Users\a-villarealn\Desktop\ExplorarVisualStudio\Consola Test Backend\obj\Debug\Consola Test Backend.exe
+C:\Users\a-villarealn\Desktop\ExplorarVisualStudio\Consola Test Backend\obj\Debug\Consola Test Backend.pdb
+C:\Users\a-villarealn\Desktop\ExplorarVisualStudio\Consola Test Backend\bin\Debug\Entidades.dll
+C:\Users\a-villarealn\Desktop\ExplorarVisualStudio\Consola Test Backend\bin\Debug\Entidades.pdb

@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="BD_Recorridas_ITModelStoreContainer" CdmEntityContainer="BD_Recorridas_ITEntities">
+    <EntitySetMapping Name="TB_RECORRIDAS">
+      <EntityTypeMapping TypeName="BD_Recorridas_ITModel.TB_RECORRIDAS">
+        <MappingFragment StoreEntitySet="TB_RECORRIDAS">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="cs_soportista" ColumnName="cs_soportista" />
+          <ScalarProperty Name="fecha" ColumnName="fecha" />
+          <ScalarProperty Name="detalle" ColumnName="detalle" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TB_SALONES">
+      <EntityTypeMapping TypeName="BD_Recorridas_ITModel.TB_SALONES">
+        <MappingFragment StoreEntitySet="TB_SALONES">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="nombre_salon" ColumnName="nombre_salon" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TB_USER_IT">
+      <EntityTypeMapping TypeName="BD_Recorridas_ITModel.TB_USER_IT">
+        <MappingFragment StoreEntitySet="TB_USER_IT">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="nombre_user" ColumnName="nombre_user" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TB_RECORRIDAS_SALONES">
+      <EntityTypeMapping TypeName="BD_Recorridas_ITModel.TB_RECORRIDAS_SALONES">
+        <MappingFragment StoreEntitySet="TB_RECORRIDAS_SALONES">
+          <ScalarProperty Name="cs_recorridas" ColumnName="cs_recorridas" />
+          <ScalarProperty Name="cs_salones" ColumnName="cs_salones" />
+          <ScalarProperty Name="estado" ColumnName="estado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="SP_AGREGAR_SALON_RECORRIDA" FunctionName="BD_Recorridas_ITModel.Store.SP_AGREGAR_SALON_RECORRIDA" />
+    <FunctionImportMapping FunctionImportName="SP_CREAR_SALON" FunctionName="BD_Recorridas_ITModel.Store.SP_CREAR_SALON" />
+    <FunctionImportMapping FunctionImportName="SP_CREAR_SOPORTISTA" FunctionName="BD_Recorridas_ITModel.Store.SP_CREAR_SOPORTISTA" />
+    <FunctionImportMapping FunctionImportName="SP_ELIMINAR_SALON" FunctionName="BD_Recorridas_ITModel.Store.SP_ELIMINAR_SALON" />
+    <FunctionImportMapping FunctionImportName="SP_ELIMINAR_SOPORTISTA" FunctionName="BD_Recorridas_ITModel.Store.SP_ELIMINAR_SOPORTISTA" />
+    <FunctionImportMapping FunctionImportName="SP_JOB_ULTIMA_RECORRIDA" FunctionName="BD_Recorridas_ITModel.Store.SP_JOB_ULTIMA_RECORRIDA" />
+    <FunctionImportMapping FunctionImportName="SP_NUEVA_RECORRIDA" FunctionName="BD_Recorridas_ITModel.Store.SP_NUEVA_RECORRIDA" />
+    <FunctionImportMapping FunctionImportName="SP_TRAER_HISTORIAL" FunctionName="BD_Recorridas_ITModel.Store.SP_TRAER_HISTORIAL">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="BD_Recorridas_ITModel.SP_TRAER_HISTORIAL_Result">
+          <ScalarProperty Name="id_recorrida" ColumnName="id_recorrida" />
+          <ScalarProperty Name="nombre_user" ColumnName="nombre_user" />
+          <ScalarProperty Name="id_salon" ColumnName="id_salon" />
+          <ScalarProperty Name="nombre_salon" ColumnName="nombre_salon" />
+          <ScalarProperty Name="fecha" ColumnName="fecha" />
+          <ScalarProperty Name="detalle" ColumnName="detalle" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping>

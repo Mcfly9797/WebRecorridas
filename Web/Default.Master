@@ -1,0 +1,128 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Default.master.cs" Inherits="Web.Default" %>
+
+<!DOCTYPE html>
+<html lang="es">
+<head runat="server">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="Bridgestone">
+    <link rel="icon" href="img/favicon.ico">
+    <title>Bridgestone</title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+
+
+    <!--Font awesome-->
+
+    <link href="./css/fontawesome-free-5.12.0-web/css/all.css" rel="stylesheet" />
+
+
+
+    <!--Estilos -->
+    <link rel="stylesheet" href="css/estilos.css">
+
+
+    <%--
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/estilos.css" rel="stylesheet">
+    <link href="css/carousel.css" rel="stylesheet">--%>
+</head>
+<!-- NAVBAR
+================================================== -->
+<body>
+    <form id="form1" runat="server">
+
+
+
+
+        <!-- barra de navegacion-->
+        <nav class="navbar navbar-expand-sm navbar-dark fixed-top">
+            <div class="container">
+                <a class="navbar-brand">Bridgestone</a>
+                
+              
+                <div class="loginHide">
+                    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                </div>
+
+
+            </div>
+
+     <div class="loginHide">
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="nuevo.aspx" class="nav-link">Nuevo</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="activos.aspx" class="nav-link">Activos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="historial.aspx" class="nav-link">Historial</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div id="main">
+            <div class="dark-overlay">
+                <div class="container">
+                    <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server"></asp:ContentPlaceHolder>
+                </div>
+            </div>
+        </div>
+        <!-- FOOTER -->
+        <footer>
+            <a>Bridgestone Argentina.</a>
+        </footer>
+        <!--javascript vanilla-->
+        <script type="text/javascript" charset="utf8" src="./js/all.js"></script>
+
+    </form>
+
+
+    <!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+        <!-- JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+</body>
+</html>
+

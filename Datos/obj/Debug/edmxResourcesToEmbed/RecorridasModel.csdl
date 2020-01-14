@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BD_Recorridas_ITModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="TB_RECORRIDAS">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="cs_soportista" Type="Int32" Nullable="false" />
+    <Property Name="fecha" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="detalle" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="TB_RECORRIDAS_SALONES" Relationship="Self.fk_recorridas" FromRole="TB_RECORRIDAS" ToRole="TB_RECORRIDAS_SALONES" />
+    <NavigationProperty Name="TB_USER_IT" Relationship="Self.fk_recorridas_soportista" FromRole="TB_RECORRIDAS" ToRole="TB_USER_IT" />
+  </EntityType>
+  <EntityType Name="TB_SALONES">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre_salon" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="TB_RECORRIDAS_SALONES" Relationship="Self.fk_nom_salones" FromRole="TB_SALONES" ToRole="TB_RECORRIDAS_SALONES" />
+  </EntityType>
+  <EntityType Name="TB_USER_IT">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre_user" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="TB_RECORRIDAS" Relationship="Self.fk_recorridas_soportista" FromRole="TB_USER_IT" ToRole="TB_RECORRIDAS" />
+  </EntityType>
+  <EntityType Name="TB_RECORRIDAS_SALONES">
+    <Key>
+      <PropertyRef Name="cs_recorridas" />
+      <PropertyRef Name="cs_salones" />
+      <PropertyRef Name="estado" />
+    </Key>
+    <Property Name="cs_recorridas" Type="Int32" Nullable="false" />
+    <Property Name="cs_salones" Type="Int32" Nullable="false" />
+    <Property Name="estado" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="TB_RECORRIDAS" Relationship="Self.fk_recorridas" FromRole="TB_RECORRIDAS_SALONES" ToRole="TB_RECORRIDAS" />
+    <NavigationProperty Name="TB_SALONES" Relationship="Self.fk_nom_salones" FromRole="TB_RECORRIDAS_SALONES" ToRole="TB_SALONES" />
+  </EntityType>
+  <Association Name="fk_recorridas">
+    <End Role="TB_RECORRIDAS" Type="Self.TB_RECORRIDAS" Multiplicity="1" />
+    <End Role="TB_RECORRIDAS_SALONES" Type="Self.TB_RECORRIDAS_SALONES" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TB_RECORRIDAS">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="TB_RECORRIDAS_SALONES">
+        <PropertyRef Name="cs_recorridas" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_recorridas_soportista">
+    <End Role="TB_USER_IT" Type="Self.TB_USER_IT" Multiplicity="1" />
+    <End Role="TB_RECORRIDAS" Type="Self.TB_RECORRIDAS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TB_USER_IT">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="TB_RECORRIDAS">
+        <PropertyRef Name="cs_soportista" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_nom_salones">
+    <End Role="TB_SALONES" Type="Self.TB_SALONES" Multiplicity="1" />
+    <End Role="TB_RECORRIDAS_SALONES" Type="Self.TB_RECORRIDAS_SALONES" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TB_SALONES">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="TB_RECORRIDAS_SALONES">
+        <PropertyRef Name="cs_salones" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="BD_Recorridas_ITEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="TB_RECORRIDAS" EntityType="Self.TB_RECORRIDAS" />
+    <EntitySet Name="TB_SALONES" EntityType="Self.TB_SALONES" />
+    <EntitySet Name="TB_USER_IT" EntityType="Self.TB_USER_IT" />
+    <EntitySet Name="TB_RECORRIDAS_SALONES" EntityType="Self.TB_RECORRIDAS_SALONES" />
+    <AssociationSet Name="fk_recorridas" Association="Self.fk_recorridas">
+      <End Role="TB_RECORRIDAS" EntitySet="TB_RECORRIDAS" />
+      <End Role="TB_RECORRIDAS_SALONES" EntitySet="TB_RECORRIDAS_SALONES" />
+    </AssociationSet>
+    <AssociationSet Name="fk_recorridas_soportista" Association="Self.fk_recorridas_soportista">
+      <End Role="TB_USER_IT" EntitySet="TB_USER_IT" />
+      <End Role="TB_RECORRIDAS" EntitySet="TB_RECORRIDAS" />
+    </AssociationSet>
+    <AssociationSet Name="fk_nom_salones" Association="Self.fk_nom_salones">
+      <End Role="TB_SALONES" EntitySet="TB_SALONES" />
+      <End Role="TB_RECORRIDAS_SALONES" EntitySet="TB_RECORRIDAS_SALONES" />
+    </AssociationSet>
+    <FunctionImport Name="SP_AGREGAR_SALON_RECORRIDA">
+      <Parameter Name="id_recorrida" Mode="In" Type="Int32" />
+      <Parameter Name="id_salon" Mode="In" Type="Int32" />
+      <Parameter Name="estado" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="SP_CREAR_SALON">
+      <Parameter Name="nombre" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="SP_CREAR_SOPORTISTA">
+      <Parameter Name="nombre" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="SP_ELIMINAR_SALON">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="SP_ELIMINAR_SOPORTISTA">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="SP_JOB_ULTIMA_RECORRIDA" />
+    <FunctionImport Name="SP_NUEVA_RECORRIDA" ReturnType="Collection(Int32)">
+      <Parameter Name="nombre_user" Mode="In" Type="String" />
+      <Parameter Name="detalle" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="SP_TRAER_HISTORIAL" ReturnType="Collection(BD_Recorridas_ITModel.SP_TRAER_HISTORIAL_Result)" />
+  </EntityContainer>
+  <ComplexType Name="SP_TRAER_HISTORIAL_Result">
+    <Property Type="Int32" Name="id_recorrida" Nullable="false" />
+    <Property Type="String" Name="nombre_user" Nullable="false" MaxLength="255" />
+    <Property Type="Int32" Name="id_salon" Nullable="false" />
+    <Property Type="String" Name="nombre_salon" Nullable="false" MaxLength="255" />
+    <Property Type="DateTime" Name="fecha" Nullable="false" />
+    <Property Type="String" Name="detalle" Nullable="true" />
+  </ComplexType>
+</Schema>
